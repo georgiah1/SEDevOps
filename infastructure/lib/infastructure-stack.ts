@@ -17,8 +17,8 @@ export class InfastructureStack extends Stack {
     //lambda to interact with dynamodb
     const connectorToDynamoDBLambda = new lambda.Function(this, 'connectorToDynamoDBLambda', {
       runtime: lambda.Runtime.NODEJS_18_X,
-      handler: 'index.handler',
-      code: lambda.Code.fromAsset(path.join(__dirname, 'lambda-handler')),
+      handler: 'connectorToDynamoDBLambda.handler',
+      code: lambda.Code.fromAsset('lambdas'),
       timeout: Duration.minutes(5)
     });
 
