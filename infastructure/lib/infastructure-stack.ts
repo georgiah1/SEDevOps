@@ -5,6 +5,10 @@ import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
 
+interface apiGatewayProps{
+  defaultIntegration: apigateway.Integration,
+}
+
 export class InfastructureStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
@@ -30,23 +34,47 @@ export class InfastructureStack extends Stack {
       restApiName: "Widget Service",
       description: "This service serves widgets.",
       handler: connectorToDynamoDBLambda,
+      proxy: false,
       defaultCorsPreflightOptions: {
         allowOrigins: apigateway.Cors.ALL_ORIGINS
       }
     });
 
+    
+
     // makes API HTTP endpoints with  a GET/health and POST /heath
     const healthcheckApi = SEDevOpsApigateway.root.addResource('health');
-    healthcheckApi.addMethod('GET');
+    healthcheckApi.addMethod('GET'),{
+      apiKeyRequired: true
+    };
 
     const regsiterApi = SEDevOpsApigateway.root.addResource('register');
-    regsiterApi.addMethod('POST');
+    regsiterApi.addMethod('POST'),{
+      apiKeyRequired: true
+    };
 
     const loginApi= SEDevOpsApigateway.root.addResource('login');
-    loginApi.addMethod('POST');
+    loginApi.addMethod('POST'),{
+      apiKeyRequired: true
+    };
 
     const verifyApi= SEDevOpsApigateway.root.addResource('verify');
-    loginApi.addMethod('POST');
-  }
+    verifyApi.addMethod('POST'),{
+      apiKeyRequired: true
+    };
 
+const apiUseagePlan = SEDevOpsApigateway.addUsagePlan('apiUseagePlan', {
+  name: 'apiUseagePlan',
+  throttle: {
+    rateLimit: 1000,
+    burstLimit: 500
+  }
+});
+
+const apiKeyClient = SEDevOpsApigateway.addApiKey('apiKeyClient');
+apiUseagePlan.addApiKey(apiKeyClient);
+
+
+//create api key and then attach to useage place later on 
+  }
 }

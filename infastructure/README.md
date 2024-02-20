@@ -13,3 +13,12 @@ The `cdk.json` file tells the CDK Toolkit how to execute your app.
 * `cdk deploy`      deploy this stack to your default AWS account/region
 * `cdk diff`        compare deployed stack with current state
 * `cdk synth`       emits the synthesized CloudFormation template
+
+
+Infastrcuture commands:
+- sudo apt-get update && sudo apt-get install awscli
+- cdk diff
+- npm i -g aws cdk
+- export AWS_PROFILE= {accountnumber}-its-admin
+- aws configure set default.region eu-west-2
+- add onto the end of a deploy command '--region eu-west-2'
