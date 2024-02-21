@@ -20,7 +20,7 @@ export class InfastructureStack extends Stack {
 
     //lambda to interact with dynamodb
     const connectorToDynamoDBLambda = new lambda.Function(this, 'connectorToDynamoDBLambda', {
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
       handler: 'connectorToDynamoDBLambda.handler',
       code: lambda.Code.fromAsset('lambdas'),
       timeout: Duration.minutes(5)
@@ -31,8 +31,8 @@ export class InfastructureStack extends Stack {
 
     //creating apigateway so the api can interact with the backend with cors to prevent the frontend client erroring when called
     const SEDevOpsApigateway = new apigateway.LambdaRestApi(this, "SEDevOpsApigateway", {
-      restApiName: "Widget Service",
-      description: "This service serves widgets.",
+      restApiName: "Employee Service",
+      description: "This service serves employee management system.",
       handler: connectorToDynamoDBLambda,
       proxy: false,
       defaultCorsPreflightOptions: {
