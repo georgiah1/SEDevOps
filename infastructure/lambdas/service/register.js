@@ -21,7 +21,7 @@ async function register(userInfo){
     const dynamoUser = await getUser(username);
     if (dynamoUser && dynamoUser.username){
         return util.buildResponse(401, {
-            message: 'That employee already exsists in the database. Please choose a different username'
+            message: 'That employee already exists in the database. Please choose a different username'
         })
     }
     //get rid of white space in password
@@ -50,10 +50,10 @@ async function getUser(username){
         }
     }
 
-    return await dynamodb.get(params).promise().then(reponse =>{
-        return Response.Item;
+    return await dynamodb.get(params).promise().then(response =>{
+        return response.Item;
     }, error => {
-        console.error('There is an error geeting the employee: ', error)
+        console.error('There is an error getting the employee: ', error)
     })
 }
 
@@ -64,7 +64,9 @@ async function saveUser(user){
     }
     return await dynamodb.put(params).promise().then(() => {
         return true;
-    }, error => {console.error('There is an error saving the employee: ', error)});
+    }, error => {
+        console.error('There is an error saving the employee: ', error)
+    });
 }
 
 module.exports.register = register;

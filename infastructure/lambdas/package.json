@@ -1,0 +1,11 @@
+{
+    "name": "lambda-devs",
+    "author":"georgia",
+    "version": "0.1.0",
+    "private": true,
+
+    "dependencies": {
+      "bcryptjs": "2.4.3",
+      "jsonwebtoken":"8.5.1"
+    }
+}
