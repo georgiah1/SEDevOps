@@ -4,6 +4,7 @@ import { Policy } from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import { Construct } from 'constructs';
 import * as apigateway from "aws-cdk-lib/aws-apigateway";
+import * as ApiKey from 'aws-cdk-lib/aws-apigateway';
 
 interface apiGatewayProps{
   defaultIntegration: apigateway.Integration,
@@ -28,7 +29,7 @@ export class InfastructureStack extends Stack {
 
     //gives lambda access to the dynamo to do put,update and delete actions
     SEDevOpsUsers.grantWriteData(connectorToDynamoDBLambda); 
-
+    SEDevOpsUsers.grantFullAccess(connectorToDynamoDBLambda);
     //creating apigateway so the api can interact with the backend with cors to prevent the frontend client erroring when called
     const SEDevOpsApigateway = new apigateway.LambdaRestApi(this, "SEDevOpsApigateway", {
       restApiName: "Employee Service",
@@ -36,7 +37,8 @@ export class InfastructureStack extends Stack {
       handler: connectorToDynamoDBLambda,
       proxy: false,
       defaultCorsPreflightOptions: {
-        allowOrigins: apigateway.Cors.ALL_ORIGINS
+        allowOrigins: apigateway.Cors.ALL_ORIGINS,
+        allowMethods: apigateway.Cors.ALL_METHODS
       }
     });
 
@@ -63,6 +65,7 @@ export class InfastructureStack extends Stack {
       apiKeyRequired: true
     };
 
+
 const apiUseagePlan = SEDevOpsApigateway.addUsagePlan('apiUseagePlan', {
   name: 'apiUseagePlan',
   throttle: {
@@ -71,8 +74,6 @@ const apiUseagePlan = SEDevOpsApigateway.addUsagePlan('apiUseagePlan', {
   }
 });
 
-const apiKeyClient = SEDevOpsApigateway.addApiKey('apiKeyClient');
-apiUseagePlan.addApiKey(apiKeyClient);
 
 
 //create api key and then attach to useage place later on 
