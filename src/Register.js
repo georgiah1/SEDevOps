@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 
-const registerUrl= "https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items"
+const registerUrl= "https://057wo5klq2.execute-api.eu-west-2.amazonaws.com/register"
 
 const Register = () => {
     const [badgeId, setBadgeId] = useState('')
