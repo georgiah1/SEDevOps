@@ -1,11 +1,3 @@
-const registerService = require('./service/register');
-const loginService = require('./service/login')
-const verifyService = require('./service/verify')
-const util = require('.utils/util')
-const healthPath = '/health'
-const registerPath = '/register'
-const loginPath = '/login'
-const verifyPath = '/verify';
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
