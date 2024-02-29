@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-//var cors = require('cors')
+
+const registerUrl= "https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items"
 
 const Register = () => {
     const [badgeId, setBadgeId] = useState('')
@@ -30,22 +31,22 @@ const Register = () => {
             password: password
         }
         //add requestBody, requestConfig when get api key 
-        
-        axios.put("https://24gkvskzgk.execute-api.eu-west-2.amazonaws.com/items",requestBody)
-        .then((response) => {
+        axios.put(registerUrl,requestBody,{mode:'cors'}).then(response => {
             setMessage('Registration Successful');
+        }).catch(error => {
+            if (error.response.status === 401){
+                setMessage(error.response.data.message);
+            } else {
+                setMessage('sorry... the server is down try again later')
+            }
         })
-        .catch((error) => {
-            console.log(error)
-            setMessage('sorry... the server is down try again later');
-        });
         console.log('submit button is pressed!')
     }
     return(
         <div>
             <form onSubmit={submitHandler}>
-                <h5> Register a new user </h5>
-                badge id: <input type="text" value={badgeId} onChange={event => setBadgeId(event.target.value)} /> <br/>
+                <h5> Employee Database </h5>
+                : <input type="text" value={badgeId} onChange={event => setBadgeId(event.target.value)} /> <br/>
                 name: <input type="text" value={name} onChange={event => setName(event.target.value)} /> <br/>
                 email: <input type="text" value={email} onChange={event => setEmail(event.target.value)} /> <br/>
                 username: <input type="text" value={username} onChange={event => setUsername(event.target.value)} /> <br/>

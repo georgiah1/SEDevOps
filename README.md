@@ -4,7 +4,7 @@ Using this tutorial: https://www.youtube.com/watch?v=mgkgQtMplPY
 
 Commands I might need for my services:
 
-Infastrcuture:
+Infastructure:
 - sudo apt-get update && sudo apt-get install awscli
 - cdk diff
 - npm i -g aws cdk

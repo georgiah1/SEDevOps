@@ -3,6 +3,7 @@ import Home from './Home';
 import Register from './Register';
 import Login from './Login';
 import PremiumContent from './PremiumContent';
+import AddEmployee from './addEmployee';
 function App() {
   return (
 
@@ -13,6 +14,7 @@ function App() {
         <NavLink exact activeClassName="active" to="/register">Register</NavLink>
         <NavLink exact activeClassName="active" to="/login">Login</NavLink>
         <NavLink exact activeClassName="active" to="/premium-content">Premium Content</NavLink>
+        <NavLink exact activeClassName="active" to="/addEmployee">Add Employee</NavLink>
       </div>
       <div className= "content">
         <Switch>
@@ -20,6 +22,7 @@ function App() {
           <Route exact path="/register" component={Register}/>
           <Route exact path="/login" component={Login}/>
           <Route exact path="/premium-content" component={PremiumContent}/>
+          <Route exact path="/add-employee" component={AddEmployee}/>
         </Switch>
       </div>
      </BrowserRouter>
