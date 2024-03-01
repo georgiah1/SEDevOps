@@ -7,6 +7,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [badgeId, setBadgeId] = useState('')
   const [ErrorMessage, setErrorMessage] = useState(null)
+  let apiRequest
   const loginUrl = "https://24gkvskzgk.execute-api.eu-west-2.amazonaws.com/items/" + badgeId
   const submitHandler = (event) => {
     event.preventDefault();
@@ -25,8 +26,18 @@ const Login = () => {
       console.log(response.data)
       console.log(response.data.username)
       console.log(response.data.password)
+      apiRequest = response
+      if ((response.data.username) === username || (response.data.password) === password){
+        setErrorMessage('Both username and password are correct');
+      } else{
+        console.log('login button is pressed!')
+      }
+      
+      console.log('correct')
       return response;
     })
+
+    
   }
     return(
         <div>
