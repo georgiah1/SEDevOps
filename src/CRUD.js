@@ -16,7 +16,8 @@ const CRUD = () => {
     const [jsonLength, setJsonLength] = useState('')
     const [jsonValues, setJsonValues] = useState('')
     const [temporaryValue] = useState('')
-    const JSONArray =[]
+    const JSONArrayIds =[]
+    const JSONArrayNames= []
     useEffect(() => {
         axios.get('https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items')
         .then(res => {
@@ -26,14 +27,23 @@ const CRUD = () => {
             for (let i = 0; i < (res.data.length); i++) {
                 console.log(res.data[i].id)
                 const temporaryValue= (res.data[i].id)
-                JSONArray.push(temporaryValue)
-                console.log(JSONArray)
+                JSONArrayIds.push(temporaryValue)
+                console.log(JSONArrayIds)
             }
+            for (let i = 0; i < (res.data.length); i++) {
+                console.log(res.data[i].name)
+                const temporaryValue= (res.data[i].name)
+                JSONArrayNames.push(temporaryValue)
+                console.log(JSONArrayNames)
+            }
+
         })
     }, [])
     return(
         <div>
-            
+            <table className="table">
+                
+            </table>
         </div>
     )
 }
