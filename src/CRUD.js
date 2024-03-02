@@ -35,16 +35,39 @@ const CRUD = () => {
                 const temporaryValue= (res.data[i].name)
                 JSONArrayNames.push(temporaryValue)
                 console.log(JSONArrayNames)
+                
             }
 
+            document.getElementById('definition2').value = JSONArrayNames[1].toString();
+            document.getElementById('definition1').value = JSONArrayIds[1].toString();
+            document.getElementById('definition3').value = JSONArrayIds[0].toString();
+            document.getElementById('definition4').value = JSONArrayNames[0].toString();
         })
     }, [])
     return(
+        
+        <body>
         <div>
+        <h2>Employee Table</h2>
             <table className="table">
-                
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                </tr>
+                <tr>
+                   
+                    <td><input type="text" id='definition1' placeholder='Definition' value="Empty" class="form-control" /></td>
+                    <td><input type="text" id='definition2' placeholder='Definition' value="Empty" class="form-control" /></td>
+                    <button type="button" styles="padding: 15px 32px">Edit User</button>
+                    <button type="button" styles="padding: 15px 32px">Delete User</button>
+                </tr>
+                <tr>
+                    <td><input type="text" id='definition3' placeholder='Definition' value="Empty" class="form-control" /></td>
+                    <td><input type="text" id='definition4' placeholder='Definition' value="Empty" class="form-control" /></td>
+                </tr>   
             </table>
         </div>
+        </body>
     )
 }
 
