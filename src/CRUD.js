@@ -1,61 +1,41 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
-const registerUrl= "https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items"
 
-const Register = () => {
+const CRUDUrl= "https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items"
+
+const CRUD = () => {
     const [badgeId, setBadgeId] = useState('')
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
-
-    const submitHandler = (event) => {
-        event.preventDefault();
-        if (badgeId.trim() === '' || username.trim() === '' || email.trim() === '' || name.trim() === '' || password.trim() === ''){
-            setMessage('All fields are required!')
-            return;
-        }
-
-        //const requestConfig = {
-        //    headers: {
-        //        'x-api-key': ''
-        //    }
-        //};
-        const requestBody= {
-            badgeId: badgeId,
-            username: username,
-            email:email,
-            name: name,
-            password: password
-        }
-        //add requestBody, requestConfig when get api key 
-        axios.put(registerUrl,requestBody,{mode:'cors'}).then(response => {
-            setMessage('Registration Successful');
-        }).catch(error => {
-            if (error.response.status === 401){
-                setMessage(error.response.data.message);
-            } else {
-                setMessage('sorry... the server is down try again later')
+    const [columns, setColumns] = useState('')
+    const [records, setRecords] = useState('')
+    const [jsonLength, setJsonLength] = useState('')
+    const [jsonValues, setJsonValues] = useState('')
+    const [temporaryValue] = useState('')
+    const JSONArray =[]
+    useEffect(() => {
+        axios.get('https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items')
+        .then(res => {
+            console.log(res.data.length)
+            setJsonLength(res.data.length)
+            
+            for (let i = 0; i < (res.data.length); i++) {
+                console.log(res.data[i].id)
+                const temporaryValue= (res.data[i].id)
+                JSONArray.push(temporaryValue)
+                console.log(JSONArray)
             }
         })
-        console.log('submit button is pressed!')
-    }
+    }, [])
     return(
         <div>
-            <form onSubmit={submitHandler}>
-                <h5> Employee Database </h5>
-                : <input type="text" value={badgeId} onChange={event => setBadgeId(event.target.value)} /> <br/>
-                name: <input type="text" value={name} onChange={event => setName(event.target.value)} /> <br/>
-                email: <input type="text" value={email} onChange={event => setEmail(event.target.value)} /> <br/>
-                username: <input type="text" value={username} onChange={event => setUsername(event.target.value)} /> <br/>
-                password: <input type="password" value={password} onChange={event => setPassword(event.target.value)} /> <br/>
-                <input type="submit" value="Register" />
-            </form>
-            {message && <p className="message">{message}</p>} 
+            
         </div>
     )
 }
 
-export default Register;
+export default CRUD;

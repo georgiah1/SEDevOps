@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 const Login = () => {
-  
+  const state = {
+    redirect: false,
+  }
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [badgeId, setBadgeId] = useState('')
@@ -32,7 +35,7 @@ const Login = () => {
       } else{
         console.log('login button is pressed!')
       }
-      
+      this.setState({ redirect: true })
       console.log('correct')
       return response;
     })
