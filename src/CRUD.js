@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+import userID from './globalVariables.js'
 
 
 const CRUDUrl= "https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items"
@@ -11,13 +12,18 @@ const CRUD = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
-    const [columns, setColumns] = useState('')
-    const [records, setRecords] = useState('')
-    const [jsonLength, setJsonLength] = useState('')
     const [jsonValues, setJsonValues] = useState(null)
-    const [temporaryValue] = useState('')
-    const JSONArrayIds =[]
-    const JSONArrayNames= []
+    
+    const deleteHandler = (event, rowId) => {
+        axios.delete("https://24gkvskzgk.execute-api.eu-west-2.amazonaws.com/items/"+ rowId)
+        .then((response) => {
+            setMessage('Delete Successful');
+        })
+        .catch((error) => {
+            console.log(error)
+            setMessage('sorry... the server is down try again later');
+        });
+    }
     useEffect(() => {
         axios.get('https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items')
         .then(res => {
@@ -39,7 +45,7 @@ const CRUD = () => {
         <body>
         <div class='card' styles="padding: 10px 10px; color: rgb(28, 85, 166); box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); transition: 0.3s; border-radius: 5px">
         <h3 class='text-center mb-3'>Welcome to the Employee Management System</h3>
-        <p class='text-right'><a href='{{url_for("add_user")}}' class='btn btn-success '>+Add User</a></p>
+        <p class='text-right'><a href='/addUser' class='btn btn-success '>+Add User</a></p>
             <table className="table" class='table table-bordered'>
                 <tr>
                     <th>Employee ID</th>
@@ -51,8 +57,8 @@ const CRUD = () => {
                 <tr>
                     <td>{row.id}</td>
                     <td>{row.name}</td>
-                    <td><a href='{{url_for("edit_user",uid=row.UID)}}' class='btn btn-primary'>Edit</a></td>
-                    <td><a href='{{url_for("delete_user",uid=row.UID)}}' class='btn btn-danger' onclick='return confirm("Are You Sure")'>Delete</a></td>
+                    <td><a href='/updateUser' class='btn btn-primary'>Edit</a></td>
+                    <td><button type="button" onclick={deleteHandler(row.id)} class='btn btn-danger'>Delete</button></td>
                 </tr>
                 ))}  
             </table>
