@@ -6,14 +6,10 @@ import userID from './globalVariables.js'
 const CRUDUrl= "https://4o7dlcyoo8.execute-api.eu-west-2.amazonaws.com/items"
 
 const CRUD = () => {
-    const [badgeId, setBadgeId] = useState('')
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
+    
     const [message, setMessage] = useState('')
     const [jsonValues, setJsonValues] = useState(null)
-    
+    message="hi"
     const deleteHandler = (event, rowId) => {
         axios.delete("https://24gkvskzgk.execute-api.eu-west-2.amazonaws.com/items/"+ rowId)
         .then((response) => {

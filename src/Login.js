@@ -3,14 +3,11 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 
 const Login = () => {
-  const state = {
-    redirect: false,
-  }
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [badgeId, setBadgeId] = useState('')
   const [ErrorMessage, setErrorMessage] = useState(null)
-  let apiRequest
   const loginUrl = "https://24gkvskzgk.execute-api.eu-west-2.amazonaws.com/items/" + badgeId
   const submitHandler = (event) => {
     event.preventDefault();

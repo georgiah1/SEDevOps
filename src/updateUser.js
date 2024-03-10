@@ -1,9 +1,5 @@
 import React, {useState} from 'react';
 import axios from 'axios';
-import isUserAdmin from './globalVariables';
-import PasswordChecklist from "react-password-checklist"
-//var cors = require('cors')
-
 
 const UpdateUser = () => {
     const [badgeId, setBadgeId] = useState('')
@@ -12,7 +8,7 @@ const UpdateUser = () => {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [message, setMessage] = useState('')
-    const [passwordAgain, setPasswordAgain] = useState('')
+    
 
     const submitHandler = (event) => {
         event.preventDefault();
